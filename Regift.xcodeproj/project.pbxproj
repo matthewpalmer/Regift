@@ -10,6 +10,10 @@
 		0E0C3BC61A4E9A7D00325FF0 /* Regift.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E0C3BC51A4E9A7D00325FF0 /* Regift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E0C3BCC1A4E9A7D00325FF0 /* Regift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BC01A4E9A7D00325FF0 /* Regift.framework */; };
 		0E0C3BD31A4E9A7D00325FF0 /* RegiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BD21A4E9A7D00325FF0 /* RegiftTests.swift */; };
+		0E0C3BDD1A4E9A9000325FF0 /* Regift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BDC1A4E9A9000325FF0 /* Regift.swift */; };
+		0E0C3BDF1A4E9C1900325FF0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */; };
+		0E0C3BE11A4E9E6400325FF0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */; };
+		0E0C3BE51A4EA2F100325FF0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,11 @@
 		0E0C3BCB1A4E9A7D00325FF0 /* RegiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E0C3BD11A4E9A7D00325FF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E0C3BD21A4E9A7D00325FF0 /* RegiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiftTests.swift; sourceTree = "<group>"; };
+		0E0C3BDC1A4E9A9000325FF0 /* Regift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regift.swift; sourceTree = "<group>"; };
+		0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E0C3BE51A4EA2F100325FF0 /* AVFoundation.framework in Frameworks */,
+				0E0C3BE11A4E9E6400325FF0 /* MobileCoreServices.framework in Frameworks */,
+				0E0C3BDF1A4E9C1900325FF0 /* ImageIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				0E0C3BC51A4E9A7D00325FF0 /* Regift.h */,
+				0E0C3BDC1A4E9A9000325FF0 /* Regift.swift */,
 				0E0C3BC31A4E9A7D00325FF0 /* Supporting Files */,
 			);
 			path = Regift;
@@ -80,6 +93,10 @@
 		0E0C3BC31A4E9A7D00325FF0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */,
+				0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */,
+				0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */,
+				0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */,
 				0E0C3BC41A4E9A7D00325FF0 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -209,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E0C3BDD1A4E9A9000325FF0 /* Regift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +337,7 @@
 		0E0C3BD71A4E9A7D00325FF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -328,12 +347,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		0E0C3BD81A4E9A7D00325FF0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
