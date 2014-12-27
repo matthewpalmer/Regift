@@ -26,3 +26,6 @@ if let gifURL = Regift.createGIFFromURL(videoURL, withFrameCount: frameCount, de
     println("Gif saved to \(gifURL)")
 }
 ```
+
+## Acknowledgements
+Thanks to [Rob Mayoff's Gist](https://gist.github.com/mayoff/4969104), without which this library wouldn't exist.
