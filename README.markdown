@@ -17,12 +17,10 @@ import Regift
 ```
 
 ```swift
-Regift.createGIFFromURL(URL: NSURL, withFrameCount frameCount: Int, delayTime: Float, loopCount: Int = 0) -> NSURL?
-
-let videoURL = ...
+let videoURL   = ...
 let frameCount = 16
-let delayTime = 0.2
-let loopCount = 0 // 0 means loop forever
+let delayTime  = 0.2
+let loopCount  = 0    // 0 means loop forever
 
 if let gifURL = Regift.createGIFFromURL(videoURL, withFrameCount: frameCount, delayTime: delayTime, loopCount: loopCount) {
     println("Gif saved to \(gifURL)")
