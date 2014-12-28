@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9E5DA00C-1727-4A22-B877-824F2D8EB116</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Regift</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BDC277C35B0A368727733300E8D1ABC32FF43D8B</key>
+		<string>https://github.com/matthewpalmer/Regift.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Regift.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BDC277C35B0A368727733300E8D1ABC32FF43D8B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/matthewpalmer/Regift.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BDC277C35B0A368727733300E8D1ABC32FF43D8B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BDC277C35B0A368727733300E8D1ABC32FF43D8B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Regift</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -14,8 +14,6 @@
 		0E0C3BDF1A4E9C1900325FF0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */; };
 		0E0C3BE11A4E9E6400325FF0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */; };
 		0E0C3BE51A4EA2F100325FF0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
-		0E0C3BE71A4EACBD00325FF0 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BE61A4EACBD00325FF0 /* README.markdown */; };
-		0E0C3BE91A4EADF300325FF0 /* LICENSE.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BE81A4EADF300325FF0 /* LICENSE.markdown */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +38,6 @@
 		0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		0E0C3BE61A4EACBD00325FF0 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = SOURCE_ROOT; };
-		0E0C3BE81A4EADF300325FF0 /* LICENSE.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.markdown; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +83,6 @@
 		0E0C3BC21A4E9A7D00325FF0 /* Regift */ = {
 			isa = PBXGroup;
 			children = (
-				0E0C3BE61A4EACBD00325FF0 /* README.markdown */,
-				0E0C3BE81A4EADF300325FF0 /* LICENSE.markdown */,
 				0E0C3BC51A4E9A7D00325FF0 /* Regift.h */,
 				0E0C3BDC1A4E9A9000325FF0 /* Regift.swift */,
 				0E0C3BC31A4E9A7D00325FF0 /* Supporting Files */,
@@ -232,9 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E0C3BE71A4EACBD00325FF0 /* README.markdown in Sources */,
 				0E0C3BDD1A4E9A9000325FF0 /* Regift.swift in Sources */,
-				0E0C3BE91A4EADF300325FF0 /* LICENSE.markdown in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +416,7 @@
 				0E0C3BD81A4E9A7D00325FF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E0C3BD91A4E9A7D00325FF0 /* Build configuration list for PBXNativeTarget "RegiftTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +425,7 @@
 				0E0C3BDB1A4E9A7D00325FF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

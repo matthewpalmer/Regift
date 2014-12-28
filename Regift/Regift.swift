@@ -23,7 +23,7 @@ public class Regift: NSObject {
     // The frames are spaced evenly over the video, and each has the same duration.
     // loopCount is the number of times the GIF will repeat. Defaults to 0, which means repeat infinitely.
     // delayTime is the amount of time for each frame in the GIF.
-    class func createGIFFromURL(URL: NSURL, withFrameCount frameCount: Int, delayTime: Float, loopCount: Int = 0) -> NSURL? {
+    public class func createGIFFromURL(URL: NSURL, withFrameCount frameCount: Int, delayTime: Float, loopCount: Int = 0) -> NSURL? {
         let fileProperties = [
             kCGImagePropertyGIFLoopCount as String: loopCount
         ]
@@ -55,21 +55,21 @@ public class Regift: NSObject {
         return gifURL
     }
     
-    class func createGIFForTimePoints(timePoints: [TimePoint], fromURL URL: NSURL, fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) -> NSURL? {
-        let documentsDirectory = NSURL(string: NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first as String)
-        let fileURL = documentsDirectory?.URLByAppendingPathComponent(Constants.FileName)
+    public class func createGIFForTimePoints(timePoints: [TimePoint], fromURL URL: NSURL, fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) -> NSURL? {
+        let temporaryFile = NSTemporaryDirectory().stringByAppendingPathComponent(Constants.FileName)
+        let fileURL = NSURL.fileURLWithPath(temporaryFile, isDirectory: false)
         
         if fileURL == nil {
             return nil
         }
-    
+        
         let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, UInt(frameCount), nil)
-    
+        
         CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
         let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
-    
+        
         var error: NSError?
         for time in timePoints {
             let imageRef = generator.copyCGImageAtTime(time, actualTime: nil, error: &error)
@@ -77,16 +77,16 @@ public class Regift: NSObject {
             if let error = error {
                 return nil
             }
-    
+            
             CGImageDestinationAddImage(destination, imageRef, frameProperties as CFDictionaryRef)
         }
-    
+        
         // Finalize the gif
         if !CGImageDestinationFinalize(destination) {
             println("Failed to finalize image destination")
             return nil
         }
-    
+        
         return fileURL
     }
 }
