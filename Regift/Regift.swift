@@ -17,6 +17,7 @@ public class Regift: NSObject {
     struct Constants {
         static let FileName = "regift.gif"
         static let TimeInterval: Int32 = 600
+        static let Tolerance = 0.01
     }
     
     // Convert the video at the given URL to a GIF, and return the GIF's URL if it was created.
@@ -68,7 +69,11 @@ public class Regift: NSObject {
         CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
         let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
         let generator = AVAssetImageGenerator(asset: asset)
+        
         generator.appliesPreferredTrackTransform = true
+        let tolerance = CMTimeMakeWithSeconds(Constants.Tolerance, Constants.TimeInterval)
+        generator.requestedTimeToleranceBefore = tolerance
+        generator.requestedTimeToleranceAfter = tolerance
         
         var error: NSError?
         for time in timePoints {
