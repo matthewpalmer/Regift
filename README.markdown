@@ -1,6 +1,9 @@
 # Regift
 Easily convert a video to a GIF on iOS.
 
+## Demo
+Visit the [Regift demo repository](https://github.com/matthewpalmer/RegiftDemo) for a sample app.
+
 ## Installation
 Install the framework ([reference c/o Alamofire](https://github.com/Alamofire/Alamofire))
 
