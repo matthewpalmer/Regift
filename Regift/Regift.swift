@@ -64,7 +64,7 @@ public class Regift: NSObject {
             return nil
         }
         
-        let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, UInt(frameCount), nil)
+        let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, frameCount, NSDictionary())
         
         CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
         let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
