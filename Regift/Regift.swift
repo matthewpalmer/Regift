@@ -33,7 +33,7 @@ public class Regift: NSObject {
             kCGImagePropertyGIFDelayTime as String: delayTime
         ]
         
-        let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
+        let asset = AVURLAsset(URL: URL, options: nil)
         
         // The total length of the movie, in seconds.
         let movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
@@ -58,7 +58,7 @@ public class Regift: NSObject {
     
     public class func createGIFForTimePoints(timePoints: [TimePoint], fromURL URL: NSURL, fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) -> NSURL? {
         let temporaryFile = NSTemporaryDirectory().stringByAppendingPathComponent(Constants.FileName)
-        let fileURL = NSURL.fileURLWithPath(temporaryFile, isDirectory: false)
+        let fileURL = NSURL.fileURLWithPath(temporaryFile, isDirectory: false) as NSURL?
         
         if fileURL == nil {
             return nil
@@ -66,29 +66,29 @@ public class Regift: NSObject {
         
         let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, frameCount, nil)
         
-        CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
-        let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
-        let generator = AVAssetImageGenerator(asset: asset)
+        CGImageDestinationSetProperties(destination!, fileProperties as CFDictionaryRef)
+        var asset: AVURLAsset?
+        asset = AVURLAsset(URL: fileURL!, options: nil)
+        let generator = AVAssetImageGenerator(asset: asset!)
         
         generator.appliesPreferredTrackTransform = true
         let tolerance = CMTimeMakeWithSeconds(Constants.Tolerance, Constants.TimeInterval)
         generator.requestedTimeToleranceBefore = tolerance
         generator.requestedTimeToleranceAfter = tolerance
         
-        var error: NSError?
         for time in timePoints {
-            let imageRef = generator.copyCGImageAtTime(time, actualTime: nil, error: &error)
-            
-            if let error = error {
-                return nil
+            var imageRef:CGImage
+            do {
+                imageRef = try generator.copyCGImageAtTime(time, actualTime: nil)
+                CGImageDestinationAddImage(destination!, imageRef, frameProperties as CFDictionaryRef)
+            } catch{
+                print("Something bad happened.")
             }
-            
-            CGImageDestinationAddImage(destination, imageRef, frameProperties as CFDictionaryRef)
         }
         
         // Finalize the gif
-        if !CGImageDestinationFinalize(destination) {
-            println("Failed to finalize image destination")
+        if !CGImageDestinationFinalize(destination!) {
+            print("Failed to finalize image destination")
             return nil
         }
         

@@ -4,7 +4,19 @@ Easily convert a video to a GIF on iOS.
 ## Demo
 Visit the [Regift demo repository](https://github.com/matthewpalmer/RegiftDemo) for a sample app.
 
+[![Version](https://img.shields.io/cocoapods/v/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
+[![License](https://img.shields.io/cocoapods/l/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
+[![Platform](https://img.shields.io/cocoapods/p/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
+
 ## Installation
+### Cocoapods
+
+Regift is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+    pod "Regift"
+
+### Manual
 Install the framework ([reference c/o Alamofire](https://github.com/Alamofire/Alamofire))
 
 1. `git submodule add https://github.com/matthewpalmer/Regift.git`
