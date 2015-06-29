@@ -15,7 +15,7 @@ public typealias TimePoint = CMTime
 
 public class Regift: NSObject {
     struct Constants {
-        static let FileName = "regift.gif"
+        static let FileName = "instant.gif"
         static let TimeInterval: Int32 = 600
         static let Tolerance = 0.01
     }
@@ -25,9 +25,10 @@ public class Regift: NSObject {
     // loopCount is the number of times the GIF will repeat. Defaults to 0, which means repeat infinitely.
     // delayTime is the amount of time for each frame in the GIF.
     public class func createGIFFromURL(URL: NSURL, withFrameCount frameCount: Int, delayTime: Float, loopCount: Int = 0) -> NSURL? {
-        let fileProperties = [
-            kCGImagePropertyGIFLoopCount as String: loopCount
-        ]
+        
+        let fileProperties = [kCGImagePropertyGIFDictionary as String :
+        [kCGImagePropertyGIFLoopCount as String: loopCount]]
+        
         
         let frameProperties = [
             kCGImagePropertyGIFDelayTime as String: delayTime
