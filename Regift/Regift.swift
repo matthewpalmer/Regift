@@ -25,8 +25,10 @@ public class Regift: NSObject {
     // loopCount is the number of times the GIF will repeat. Defaults to 0, which means repeat infinitely.
     // delayTime is the amount of time for each frame in the GIF.
     public class func createGIFFromURL(URL: NSURL, withFrameCount frameCount: Int, delayTime: Float, loopCount: Int = 0) -> NSURL? {
+        
         let fileProperties = [
-            kCGImagePropertyGIFLoopCount as String: loopCount
+            kCGImagePropertyGIFDictionary as String :
+                [kCGImagePropertyGIFLoopCount as String: loopCount]
         ]
         
         let frameProperties = [
