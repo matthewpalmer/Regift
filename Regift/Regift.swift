@@ -32,7 +32,7 @@ public class Regift: NSObject {
         ]
         
         let frameProperties = [
-            kCGImagePropertyGIFDelayTime as String: delayTime
+            kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFDelayTime as String: delayTime]
         ]
         
         let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
