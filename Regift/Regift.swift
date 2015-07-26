@@ -60,54 +60,73 @@ public class Regift: NSObject {
     }
     
     public class func createGIFForTimePoints(timePoints: [TimePoint], fromURL URL: NSURL, fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) -> NSURL? {
-        let temporaryFile = NSTemporaryDirectory().stringByAppendingPathComponent(Constants.FileName)
-        let fileURL = NSURL.fileURLWithPath(temporaryFile, isDirectory: false)
         
-        if fileURL == nil {
-            return nil
-        }
-        
-        
-        let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, frameCount, NSDictionary())
-        
-        CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
-        let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
-        let generator = AVAssetImageGenerator(asset: asset)
-        
-        generator.appliesPreferredTrackTransform = true
-        let tolerance = CMTimeMakeWithSeconds(Constants.Tolerance, Constants.TimeInterval)
-        generator.requestedTimeToleranceBefore = tolerance
-        generator.requestedTimeToleranceAfter = tolerance
+        var fileURL: NSURL? = nil
         
         let group = dispatch_group_create()
         dispatch_group_enter(group)
         
-        var error: NSError?
-        let generationHandler: AVAssetImageGeneratorCompletionHandler = {[weak generator] (requestedTime: CMTime, image: CGImage!, receivedTime: CMTime, result: AVAssetImageGeneratorResult, err: NSError!) -> Void in
-            if let error = err where result != .Succeeded {
-                generator?.cancelAllCGImageGeneration()
-                dispatch_group_leave(group)
-            }
-            else {
-                CGImageDestinationAddImage(destination, image, frameProperties as CFDictionaryRef)
-                
-                if CMTimeCompare(requestedTime, timePoints.last!) == 0 {
-                    // Leave the dispatch group if we've finished processing the last frame as well
-                    dispatch_group_leave(group)
-                }
-            }
-        }
+        createGIFAsynchronouslyForTimePoints(timePoints, fromURL: URL, fileProperties: fileProperties, frameProperties: frameProperties, frameCount: frameCount, progressHandler: nil, completionHandler: {URL in
+            fileURL = URL
+            dispatch_group_leave(group)
+        })
 
-        generator.generateCGImagesAsynchronouslyForTimePoints(timePoints, completionHandler: generationHandler)
         dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
         
-        
-        // Finalize the gif, barring any errors
-        if error != nil || !CGImageDestinationFinalize(destination) {
-            println("Failed to finalize image destination")
-            return nil
-        }
-        
         return fileURL
+    }
+    
+    public class func createGIFAsynchronouslyForTimePoints(timePoints: [TimePoint], fromURL URL: NSURL, fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int, progressHandler: (Double -> Void)?, completionHandler: (NSURL? -> Void)?) -> Void {
+        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0)) {
+            let temporaryFile = NSTemporaryDirectory().stringByAppendingPathComponent(Constants.FileName)
+            let fileURL = NSURL.fileURLWithPath(temporaryFile, isDirectory: false)
+
+            if fileURL == nil {
+                completionHandler?(nil)
+                return
+            }
+            
+            let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, frameCount, NSDictionary())
+            
+            CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
+            let asset = AVURLAsset(URL: URL, options: [NSObject: AnyObject]())
+            let generator = AVAssetImageGenerator(asset: asset)
+            
+            generator.appliesPreferredTrackTransform = true
+            let tolerance = CMTimeMakeWithSeconds(Constants.Tolerance, Constants.TimeInterval)
+            generator.requestedTimeToleranceBefore = tolerance
+            generator.requestedTimeToleranceAfter = tolerance
+            
+            
+            var error: NSError?
+            var generatedImageCount = 0.0
+            let generationHandler: AVAssetImageGeneratorCompletionHandler = {[weak generator] (requestedTime: CMTime, image: CGImage!, receivedTime: CMTime, result: AVAssetImageGeneratorResult, err: NSError!) -> Void in
+                if let error = err where result != .Succeeded {
+                    generator?.cancelAllCGImageGeneration()
+                    println("Cancelling CGImage generation due to error: \(error)")
+                    completionHandler?(nil)
+                }
+                else {
+                    CGImageDestinationAddImage(destination, image, frameProperties as CFDictionaryRef)
+                    
+                    generatedImageCount += 1.0
+                    let progress = Double(timePoints.count) / generatedImageCount
+                    progressHandler?(progress)
+                    
+                    if CMTimeCompare(requestedTime, timePoints.last!) == 0 {
+                        if CGImageDestinationFinalize(destination) {
+                            completionHandler?(fileURL)
+                        }
+                        else {
+                            println("\(self): Unable to finalize CGImageDestination!")
+                            completionHandler?(nil)
+                        }
+                    }
+                }
+            }
+            
+            generator.generateCGImagesAsynchronouslyForTimePoints(timePoints, completionHandler: generationHandler)
+        }
     }
 }
