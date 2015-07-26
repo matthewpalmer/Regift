@@ -10,6 +10,7 @@ import UIKit
 import ImageIO
 import MobileCoreServices
 import AVFoundation
+import Dispatch
 
 public typealias TimePoint = CMTime
 
@@ -66,6 +67,7 @@ public class Regift: NSObject {
             return nil
         }
         
+        
         let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, frameCount, NSDictionary())
         
         CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
@@ -77,19 +79,31 @@ public class Regift: NSObject {
         generator.requestedTimeToleranceBefore = tolerance
         generator.requestedTimeToleranceAfter = tolerance
         
-        var error: NSError?
-        for time in timePoints {
-            let imageRef = generator.copyCGImageAtTime(time, actualTime: nil, error: &error)
-            
-            if let error = error {
-                return nil
-            }
-            
-            CGImageDestinationAddImage(destination, imageRef, frameProperties as CFDictionaryRef)
-        }
+        let group = dispatch_group_create()
+        dispatch_group_enter(group)
         
-        // Finalize the gif
-        if !CGImageDestinationFinalize(destination) {
+        var error: NSError?
+        let generationHandler: AVAssetImageGeneratorCompletionHandler = {[weak generator] (requestedTime: CMTime, image: CGImage!, receivedTime: CMTime, result: AVAssetImageGeneratorResult, err: NSError!) -> Void in
+            if let error = err where result != .Succeeded {
+                generator?.cancelAllCGImageGeneration()
+                dispatch_group_leave(group)
+            }
+            else {
+                CGImageDestinationAddImage(destination, image, frameProperties as CFDictionaryRef)
+                
+                if CMTimeCompare(requestedTime, timePoints.last!) == 0 {
+                    // Leave the dispatch group if we've finished processing the last frame as well
+                    dispatch_group_leave(group)
+                }
+            }
+        }
+
+        generator.generateCGImagesAsynchronouslyForTimePoints(timePoints, completionHandler: generationHandler)
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+        
+        
+        // Finalize the gif, barring any errors
+        if error != nil || !CGImageDestinationFinalize(destination) {
             println("Failed to finalize image destination")
             return nil
         }
