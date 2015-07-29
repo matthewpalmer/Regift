@@ -98,23 +98,22 @@ public class Regift: NSObject {
             generator.requestedTimeToleranceBefore = tolerance
             generator.requestedTimeToleranceAfter = tolerance
             
-            
             var error: NSError?
             var generatedImageCount = 0.0
             let generationHandler: AVAssetImageGeneratorCompletionHandler = {[weak generator] (requestedTime: CMTime, image: CGImage!, receivedTime: CMTime, result: AVAssetImageGeneratorResult, err: NSError!) -> Void in
-                if let error = err where result != .Succeeded {
+                if let error = err {
                     generator?.cancelAllCGImageGeneration()
                     println("Cancelling CGImage generation due to error: \(error)")
                     completionHandler?(nil)
                 }
-                else {
+                else if result == .Succeeded {
                     CGImageDestinationAddImage(destination, image, frameProperties as CFDictionaryRef)
                     
                     generatedImageCount += 1.0
                     let progress = Double(timePoints.count) / generatedImageCount
                     progressHandler?(progress)
                     
-                    if CMTimeCompare(requestedTime, timePoints.last!) == 0 {
+                    if (CMTimeCompare(requestedTime, timePoints.last!) == 0) {
                         if CGImageDestinationFinalize(destination) {
                             completionHandler?(fileURL)
                         }
