@@ -134,7 +134,7 @@ public class Regift: NSObject {
                     CGImageDestinationAddImage(destination, image, frameProperties as CFDictionaryRef)
                     
                     generatedImageCount += 1.0
-                    let progress = Double(timePoints.count) / generatedImageCount
+                    let progress =  generatedImageCount / Double(timePoints.count)
                     progressHandler?(progress)
                     
                     if (CMTimeCompare(requestedTime, timePoints.last!) == 0) {
