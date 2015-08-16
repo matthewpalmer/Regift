@@ -14,6 +14,7 @@
 		0E0C3BDF1A4E9C1900325FF0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */; };
 		0E0C3BE11A4E9E6400325FF0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */; };
 		0E0C3BE51A4EA2F100325FF0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
+		0EB2CE501B807C2600854BDD /* regift-test-file.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "regift-test-file.mov"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		0E0C3BD01A4E9A7D00325FF0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */,
 				0E0C3BD11A4E9A7D00325FF0 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -216,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB2CE501B807C2600854BDD /* regift-test-file.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
