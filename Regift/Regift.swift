@@ -21,6 +21,10 @@ public enum RegiftError: String, ErrorType {
 }
 
 /// Easily convert a video to a GIF.
+///
+/// Usage:
+///      let regift = Regift(sourceFileURL: movieFileURL, frameCount: 24, delayTime: 0.5, loopCount: 7)
+///      print(regift.gifURL)
 public struct Regift {
     private struct Constants {
         static let FileName = "regift.gif"
