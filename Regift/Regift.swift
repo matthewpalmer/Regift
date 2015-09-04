@@ -52,7 +52,7 @@ public struct Regift {
     }
     
     /// Get the URL of the GIF created with the attributes provided in the initializer.
-    public var gifURL: NSURL? {
+    public func createGif() -> NSURL? {
         let fileProperties = [kCGImagePropertyGIFDictionary as String:
             [
                 kCGImagePropertyGIFLoopCount as String: loopCount

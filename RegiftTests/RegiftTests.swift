@@ -29,7 +29,7 @@ class RegiftTests: XCTestCase {
     
     func testGIFIsCreated() {
         let regift = Regift(sourceFileURL: URL, frameCount: 16, delayTime: 0.2)
-        let result = regift.gifURL
+        let result = regift.createGif()
         XCTAssertNotNil(result, "The GIF URL should not be nil")
         XCTAssertTrue(NSFileManager.defaultManager().fileExistsAtPath(result!.path!))
         
@@ -54,7 +54,7 @@ class RegiftTests: XCTestCase {
     
     func testGIFIsNotCreated() {
         let regift = Regift(sourceFileURL: NSURL(), frameCount: 10, delayTime: 0.5)
-        let result = regift.gifURL
+        let result = regift.createGif()
         XCTAssertNil(result)
     }
 }
