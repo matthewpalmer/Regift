@@ -83,7 +83,7 @@ public struct Regift {
         
         do {
             return try createGIFForTimePoints(timePoints, fileProperties: fileProperties, frameProperties: frameProperties, frameCount: frameCount)
-
+            
         } catch {
             return nil
         }
@@ -130,7 +130,7 @@ public struct Regift {
         if !CGImageDestinationFinalize(destination) {
             throw RegiftError.DestinationFinalize
         }
-    
+        
         return fileURL
     }
 }
