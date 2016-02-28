@@ -3,7 +3,7 @@
 //  RegiftOSX
 //
 //  Created by nakajijapan on 2016/02/28.
-//  Copyright © 2016年 Matthew Palmer. All rights reserved.
+//  Copyright © 2016 Matthew Palmer. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
