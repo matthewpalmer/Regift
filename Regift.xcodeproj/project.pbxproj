@@ -18,6 +18,9 @@
 		DC50F2D61C82B858008518EC /* RegiftOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = DC50F2D51C82B858008518EC /* RegiftOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC50F2DC1C82B8FD008518EC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
 		DC50F2DD1C82B8FD008518EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */; };
+		DC50F3081C82C85B008518EC /* RegiftOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC50F2D31C82B858008518EC /* RegiftOSX.framework */; };
+		DC50F30E1C82C863008518EC /* RegiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BD21A4E9A7D00325FF0 /* RegiftTests.swift */; };
+		DC50F3111C82CB3B008518EC /* Regift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BDC1A4E9A9000325FF0 /* Regift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +30,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0E0C3BBF1A4E9A7D00325FF0;
 			remoteInfo = Regift;
+		};
+		DC50F3091C82C85B008518EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E0C3BB71A4E9A7D00325FF0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC50F2D21C82B858008518EC;
+			remoteInfo = RegiftOSX;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -46,6 +56,8 @@
 		DC50F2D31C82B858008518EC /* RegiftOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RegiftOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC50F2D51C82B858008518EC /* RegiftOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegiftOSX.h; sourceTree = "<group>"; };
 		DC50F2D71C82B858008518EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC50F3031C82C85B008518EC /* RegiftOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegiftOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC50F3071C82C85B008518EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +88,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC50F3001C82C85B008518EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC50F3081C82C85B008518EC /* RegiftOSX.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -85,6 +105,7 @@
 				0E0C3BC21A4E9A7D00325FF0 /* Regift */,
 				0E0C3BCF1A4E9A7D00325FF0 /* RegiftTests */,
 				DC50F2D41C82B858008518EC /* RegiftOSX */,
+				DC50F3041C82C85B008518EC /* RegiftOSXTests */,
 				0E0C3BC11A4E9A7D00325FF0 /* Products */,
 				DC50F2DB1C82B8B0008518EC /* frameworks */,
 			);
@@ -96,6 +117,7 @@
 				0E0C3BC01A4E9A7D00325FF0 /* Regift.framework */,
 				0E0C3BCB1A4E9A7D00325FF0 /* RegiftTests.xctest */,
 				DC50F2D31C82B858008518EC /* RegiftOSX.framework */,
+				DC50F3031C82C85B008518EC /* RegiftOSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,6 +176,14 @@
 				0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */,
 			);
 			name = frameworks;
+			sourceTree = "<group>";
+		};
+		DC50F3041C82C85B008518EC /* RegiftOSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC50F3071C82C85B008518EC /* Info.plist */,
+			);
+			path = RegiftOSXTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,13 +262,31 @@
 			productReference = DC50F2D31C82B858008518EC /* RegiftOSX.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		DC50F3021C82C85B008518EC /* RegiftOSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC50F30D1C82C85B008518EC /* Build configuration list for PBXNativeTarget "RegiftOSXTests" */;
+			buildPhases = (
+				DC50F2FF1C82C85B008518EC /* Sources */,
+				DC50F3001C82C85B008518EC /* Frameworks */,
+				DC50F3011C82C85B008518EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC50F30A1C82C85B008518EC /* PBXTargetDependency */,
+			);
+			name = RegiftOSXTests;
+			productName = RegiftOSXTests;
+			productReference = DC50F3031C82C85B008518EC /* RegiftOSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0E0C3BB71A4E9A7D00325FF0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Matthew Palmer";
 				TargetAttributes = {
@@ -249,6 +297,9 @@
 						CreatedOnToolsVersion = 6.1.1;
 					};
 					DC50F2D21C82B858008518EC = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					DC50F3021C82C85B008518EC = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
@@ -268,6 +319,7 @@
 				0E0C3BBF1A4E9A7D00325FF0 /* Regift */,
 				DC50F2D21C82B858008518EC /* RegiftOSX */,
 				0E0C3BCA1A4E9A7D00325FF0 /* RegiftTests */,
+				DC50F3021C82C85B008518EC /* RegiftOSXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -289,6 +341,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DC50F2D11C82B858008518EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC50F3011C82C85B008518EC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -318,6 +377,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC50F3111C82CB3B008518EC /* Regift.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC50F2FF1C82C85B008518EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC50F30E1C82C863008518EC /* RegiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +396,11 @@
 			isa = PBXTargetDependency;
 			target = 0E0C3BBF1A4E9A7D00325FF0 /* Regift */;
 			targetProxy = 0E0C3BCD1A4E9A7D00325FF0 /* PBXContainerItemProxy */;
+		};
+		DC50F30A1C82C85B008518EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC50F2D21C82B858008518EC /* RegiftOSX */;
+			targetProxy = DC50F3091C82C85B008518EC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -528,6 +601,40 @@
 			};
 			name = Release;
 		};
+		DC50F30B1C82C85B008518EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = RegiftOSXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.RegiftOSXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DC50F30C1C82C85B008518EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = RegiftOSXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.RegiftOSXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -563,6 +670,15 @@
 			buildConfigurations = (
 				DC50F2D91C82B858008518EC /* Debug */,
 				DC50F2DA1C82B858008518EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC50F30D1C82C85B008518EC /* Build configuration list for PBXNativeTarget "RegiftOSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC50F30B1C82C85B008518EC /* Debug */,
+				DC50F30C1C82C85B008518EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
