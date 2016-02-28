@@ -12,4 +12,5 @@ install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
 - set -o pipefail && xcodebuild test -project Regift.xcodeproj/ -scheme Regift -destination 'platform=iOS Simulator,name=iPhone 6s Plus' ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- set -o pipefail && xcodebuild test -project Regift.xcodeproj/ -scheme RegiftOSX -destination 'platform=OS X,arch=x86_64' ONLY_ACTIVE_ARCH=NO | xcpretty -c
 - pod lib lint --quick
