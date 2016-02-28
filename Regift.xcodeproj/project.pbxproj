@@ -15,6 +15,9 @@
 		0E0C3BE11A4E9E6400325FF0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */; };
 		0E0C3BE51A4EA2F100325FF0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
 		0EB2CE501B807C2600854BDD /* regift-test-file.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */; };
+		DC50F2D61C82B858008518EC /* RegiftOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = DC50F2D51C82B858008518EC /* RegiftOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC50F2DC1C82B8FD008518EC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
+		DC50F2DD1C82B8FD008518EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "regift-test-file.mov"; sourceTree = "<group>"; };
+		DC50F2D31C82B858008518EC /* RegiftOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RegiftOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC50F2D51C82B858008518EC /* RegiftOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegiftOSX.h; sourceTree = "<group>"; };
+		DC50F2D71C82B858008518EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +67,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC50F2CF1C82B858008518EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC50F2DD1C82B8FD008518EC /* ImageIO.framework in Frameworks */,
+				DC50F2DC1C82B8FD008518EC /* AVFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -69,7 +84,9 @@
 			children = (
 				0E0C3BC21A4E9A7D00325FF0 /* Regift */,
 				0E0C3BCF1A4E9A7D00325FF0 /* RegiftTests */,
+				DC50F2D41C82B858008518EC /* RegiftOSX */,
 				0E0C3BC11A4E9A7D00325FF0 /* Products */,
+				DC50F2DB1C82B8B0008518EC /* frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +95,7 @@
 			children = (
 				0E0C3BC01A4E9A7D00325FF0 /* Regift.framework */,
 				0E0C3BCB1A4E9A7D00325FF0 /* RegiftTests.xctest */,
+				DC50F2D31C82B858008518EC /* RegiftOSX.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,10 +113,6 @@
 		0E0C3BC31A4E9A7D00325FF0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */,
-				0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */,
-				0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */,
-				0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */,
 				0E0C3BC41A4E9A7D00325FF0 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -122,6 +136,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DC50F2D41C82B858008518EC /* RegiftOSX */ = {
+			isa = PBXGroup;
+			children = (
+				DC50F2D51C82B858008518EC /* RegiftOSX.h */,
+				DC50F2D71C82B858008518EC /* Info.plist */,
+			);
+			path = RegiftOSX;
+			sourceTree = "<group>";
+		};
+		DC50F2DB1C82B8B0008518EC /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */,
+				0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */,
+				0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */,
+				0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */,
+			);
+			name = frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -130,6 +164,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E0C3BC61A4E9A7D00325FF0 /* Regift.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC50F2D01C82B858008518EC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC50F2D61C82B858008518EC /* RegiftOSX.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +214,24 @@
 			productReference = 0E0C3BCB1A4E9A7D00325FF0 /* RegiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		DC50F2D21C82B858008518EC /* RegiftOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC50F2D81C82B858008518EC /* Build configuration list for PBXNativeTarget "RegiftOSX" */;
+			buildPhases = (
+				DC50F2CE1C82B858008518EC /* Sources */,
+				DC50F2CF1C82B858008518EC /* Frameworks */,
+				DC50F2D01C82B858008518EC /* Headers */,
+				DC50F2D11C82B858008518EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RegiftOSX;
+			productName = RegiftOSX;
+			productReference = DC50F2D31C82B858008518EC /* RegiftOSX.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,6 +248,9 @@
 					0E0C3BCA1A4E9A7D00325FF0 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
+					DC50F2D21C82B858008518EC = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 0E0C3BBA1A4E9A7D00325FF0 /* Build configuration list for PBXProject "Regift" */;
@@ -203,6 +266,7 @@
 			projectRoot = "";
 			targets = (
 				0E0C3BBF1A4E9A7D00325FF0 /* Regift */,
+				DC50F2D21C82B858008518EC /* RegiftOSX */,
 				0E0C3BCA1A4E9A7D00325FF0 /* RegiftTests */,
 			);
 		};
@@ -224,6 +288,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC50F2D11C82B858008518EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -240,6 +311,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E0C3BD31A4E9A7D00325FF0 /* RegiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC50F2CE1C82B858008518EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +480,54 @@
 			};
 			name = Release;
 		};
+		DC50F2D91C82B858008518EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = RegiftOSX/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.RegiftOSX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DC50F2DA1C82B858008518EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = RegiftOSX/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.RegiftOSX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -431,6 +557,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		DC50F2D81C82B858008518EC /* Build configuration list for PBXNativeTarget "RegiftOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC50F2D91C82B858008518EC /* Debug */,
+				DC50F2DA1C82B858008518EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
