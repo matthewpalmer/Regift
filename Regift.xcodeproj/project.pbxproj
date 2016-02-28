@@ -18,9 +18,10 @@
 		DC50F2D61C82B858008518EC /* RegiftOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = DC50F2D51C82B858008518EC /* RegiftOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC50F2DC1C82B8FD008518EC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
 		DC50F2DD1C82B8FD008518EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */; };
-		DC50F3081C82C85B008518EC /* RegiftOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC50F2D31C82B858008518EC /* RegiftOSX.framework */; };
 		DC50F30E1C82C863008518EC /* RegiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BD21A4E9A7D00325FF0 /* RegiftTests.swift */; };
 		DC50F3111C82CB3B008518EC /* Regift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3BDC1A4E9A9000325FF0 /* Regift.swift */; };
+		DC50F3141C82D2CC008518EC /* regift-test-file.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */; };
+		DC50F3151C82D2F9008518EC /* RegiftOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC50F2D31C82B858008518EC /* RegiftOSX.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC50F3081C82C85B008518EC /* RegiftOSX.framework in Frameworks */,
+				DC50F3151C82D2F9008518EC /* RegiftOSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +352,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC50F3141C82D2CC008518EC /* regift-test-file.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +443,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -481,6 +484,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -570,7 +574,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.RegiftOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.Regift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -594,7 +598,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.RegiftOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = net.matthewpalmer.Regift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -681,6 +685,7 @@
 				DC50F30C1C82C85B008518EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
