@@ -6,9 +6,14 @@
 //  Copyright (c) 2014 Matthew Palmer. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
-import ImageIO
 import MobileCoreServices
+#elseif os(OSX)
+import AppKit
+#endif
+
+import ImageIO
 import AVFoundation
 
 public typealias TimePoint = CMTime
