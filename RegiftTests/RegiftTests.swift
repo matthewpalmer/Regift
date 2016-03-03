@@ -6,9 +6,15 @@
 //  Copyright (c) 2014 Matthew Palmer. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
-import XCTest
 import Regift
+#elseif os(OSX)
+import AppKit
+import RegiftOSX
+#endif
+import XCTest
+
 import ImageIO
 
 class RegiftTests: XCTestCase {
@@ -28,6 +34,7 @@ class RegiftTests: XCTestCase {
     }
     
     func testGIFIsCreated() {
+
         let regift = Regift(sourceFileURL: URL, frameCount: 16, delayTime: 0.2)
         let result = regift.createGif()
         XCTAssertNotNil(result, "The GIF URL should not be nil")
