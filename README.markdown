@@ -4,6 +4,7 @@ Easily convert a video to a GIF on iOS.
 [![Version](https://img.shields.io/cocoapods/v/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
 [![License](https://img.shields.io/cocoapods/l/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
 [![Platform](https://img.shields.io/cocoapods/p/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Installation
 ### Cocoapods
@@ -13,7 +14,14 @@ it, simply add the following line to your Podfile:
 
     pod "Regift"
 
+### Carthage
+
+Regift is available through [Carthage](https://github.com/Carthage/Carthage).
+
+    github 'matthewpalmer/Regift'
+
 ## Quick Start
+
 ```swift
 import Regift
 ```
