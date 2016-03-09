@@ -18,7 +18,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Regift/*.{m,h,swift}'
-  s.resource_bundles = {
-    'Regift' => ['Pod/Assets/*.png']
-  }
 end
