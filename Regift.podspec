@@ -7,7 +7,6 @@ Pod::Spec.new do |s|
                        Create a gif from a given video URL, tweaking the frame count, delay time, and number of loops.
                        DESC
   s.homepage         = "https://github.com/matthewpalmer/Regift"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "matthewpalmer" => "matt@matthewpalmer.net" }
   s.source           = { :git => "https://github.com/matthewpalmer/Regift.git", :tag => s.version.to_s }
@@ -22,7 +21,4 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'Regift' => ['Pod/Assets/*.png']
   }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  s.frameworks = 'UIKit'
 end
