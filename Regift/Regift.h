@@ -5,6 +5,7 @@
 //  Created by Matthew Palmer on 27/12/2014.
 //  Copyright (c) 2014 Matthew Palmer. All rights reserved.
 //
+#import <Foundation/Foundation.h>
 
 #if TARGET_OS_WATCH
 #elif TARGET_OS_TV
