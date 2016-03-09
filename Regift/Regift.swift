@@ -64,15 +64,17 @@ public struct Regift {
     
     /// Get the URL of the GIF created with the attributes provided in the initializer.
     public func createGif() -> NSURL? {
-        let fileProperties = [kCGImagePropertyGIFDictionary as String:
-            [
-                kCGImagePropertyGIFLoopCount as String: loopCount
-            ]]
+
+        let fileProperties = [kCGImagePropertyGIFDictionary as String:[
+            kCGImagePropertyGIFLoopCount as String: NSNumber(int: Int32(loopCount))],
+            kCGImagePropertyGIFHasGlobalColorMap as String: NSValue(nonretainedObject: true)
+        ]
         
-        let frameProperties = [kCGImagePropertyGIFDictionary as String:
-            [
-                kCGImagePropertyGIFDelayTime as String: delayTime
-            ]]
+        let frameProperties = [
+            kCGImagePropertyGIFDictionary as String:[
+                kCGImagePropertyGIFDelayTime as String:delayTime
+            ]
+        ]
         
         let asset = AVURLAsset(URL: sourceFileURL, options: nil)
         
