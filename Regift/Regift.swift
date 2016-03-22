@@ -34,9 +34,9 @@ private struct Group {
     func wait() { dispatch_group_wait(group, DISPATCH_TIME_FOREVER) }
 }
 
-/// Easily convert a video to a GIF.
+/// Easily convert a video to a GIF. It can convert the whole thing, or you can choose a section to trim out.
 ///
-/// Usage:
+/// Synchronous Usage:
 ///
 ///      let regift = Regift(sourceFileURL: movieFileURL, frameCount: 24, delayTime: 0.5, loopCount: 7)
 ///      print(regift.createGif())
@@ -45,6 +45,18 @@ private struct Group {
 ///
 ///      let trimmedRegift = Regift(sourceFileURL: movieFileURL, startTime: 30, duration: 15, frameRate: 15)
 ///      print(trimmedRegift.createGif())
+///
+/// Asynchronous Usage:
+///
+///      let regift = Regift.createGIFFromSource(movieFileURL, frameCount: 24, delayTime: 0.5, loopCount: 7) { (result) in
+///          print(result)
+///      }
+///
+///      // OR
+///
+///      let trimmedRegift = Regift.createGIFFromSource(movieFileURL, startTime: 30, duration: 15, frameRate: 15) { (result) in
+///          print(result)
+///      }
 ///
 public struct Regift {
 
