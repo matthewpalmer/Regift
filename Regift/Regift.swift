@@ -90,7 +90,7 @@ public struct Regift {
             - delayTime: The amount of time each frame exists for in the GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
      */
-    public init(sourceFileURL: NSURL, destinationFileURL: NSURL?, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
+    public init(sourceFileURL: NSURL, destinationFileURL: NSURL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
@@ -112,7 +112,7 @@ public struct Regift {
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
      */
-    public init(sourceFileURL: NSURL, destinationFileURL: NSURL?, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+    public init(sourceFileURL: NSURL, destinationFileURL: NSURL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
         self.destinationFileURL = destinationFileURL
@@ -129,14 +129,6 @@ public struct Regift {
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
 
         self.loopCount = loopCount
-    }
-    
-    public init(sourceFileURL: NSURL, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
-        self.init(sourceFileURL:sourceFileURL, destinationFileURL:nil, frameCount:frameCount, delayTime:delayTime, loopCount:loopCount)
-    }
-
-    public init(sourceFileURL: NSURL, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
-        self.init(sourceFileURL: sourceFileURL, destinationFileURL: nil, startTime: startTime, duration: duration, frameRate: frameRate, loopCount: loopCount)
     }
 
     /**
