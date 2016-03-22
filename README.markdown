@@ -29,10 +29,10 @@ import Regift
 ```swift
 let videoURL   = ...
 let frameCount = 16
-let delayTime  = 0.2
+let delayTime  = Float(0.2)
 let loopCount  = 0    // 0 means loop forever
 
-let regift = Regift(sourceFileURL: videoURL, frameCount: frameCount, delayTime, loopCount: loopCount)
+let regift = Regift(sourceFileURL: videoURL, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount)
 print("Gif saved to \(regift.createGif())")
 ```
 
