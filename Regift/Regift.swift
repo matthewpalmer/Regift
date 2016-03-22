@@ -47,6 +47,70 @@ private struct Group {
 ///      print(trimmedRegift.createGif())
 ///
 public struct Regift {
+
+    // Static conversion methods, for convenient and easy-to-use API:
+
+    /**
+        Create a GIF from a movie stored at the given URL. This converts the whole video to a GIF meeting the requested output parameters.
+
+        - parameters:
+            - sourceFileURL: The source file to create the GIF from.
+            - destinationFileURL: An optional destination file to write the GIF to. If you don't include this, a default path will be provided.
+            - frameCount: The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
+            - delayTime: The amount of time each frame exists for in the GIF.
+            - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
+    */
+    public static func createGIFFromSource(
+        sourceFileURL: NSURL,
+        destinationFileURL: NSURL? = nil,
+        frameCount: Int,
+        delayTime: Float,
+        loopCount: Int = 0,
+        completion: (result: NSURL?) -> Void) {
+            let gift = Regift(
+                sourceFileURL: sourceFileURL,
+                destinationFileURL: destinationFileURL,
+                frameCount: frameCount,
+                delayTime: delayTime,
+                loopCount: loopCount
+            )
+
+            completion(result: gift.createGif())
+    }
+
+    /**
+        Create a GIF from a movie stored at the given URL. This allows you to choose a start time and duration in the source material that will be used to create the GIF which meets the output parameters.
+
+        - parameters:
+            - sourceFileURL: The source file to create the GIF from.
+            - destinationFileURL: An optional destination file to write the GIF to. If you don't include this, a default path will be provided.
+            - startTime: The time in seconds in the source material at which you want the GIF to start.
+            - duration: The duration in seconds that you want to pull from the source material.
+            - frameRate: The desired frame rate of the outputted GIF.
+            - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
+    */
+    public static func createGIFFromSource(
+        sourceFileURL: NSURL,
+        destinationFileURL: NSURL? = nil,
+        startTime: Float,
+        duration: Float,
+        frameRate: Int,
+        loopCount: Int = 0,
+        completion: (result: NSURL?) -> Void) {
+            let gift = Regift(
+                sourceFileURL: sourceFileURL,
+                destinationFileURL: destinationFileURL,
+                startTime: startTime,
+                duration: duration,
+                frameRate: frameRate,
+                loopCount: loopCount
+            )
+
+            completion(result: gift.createGif())
+    }
+
     private struct Constants {
         static let FileName = "regift.gif"
         static let TimeInterval: Int32 = 600
