@@ -39,7 +39,7 @@ private struct Group {
 /// Usage:
 ///
 ///      let regift = Regift(sourceFileURL: movieFileURL, frameCount: 24, delayTime: 0.5, loopCount: 7)
-///      print(regift.gifURL)
+///      print(regift.createGif())
 ///
 public struct Regift {
     private struct Constants {
@@ -51,10 +51,19 @@ public struct Regift {
     /// A reference to the asset we are converting.
     private var asset: AVAsset
 
+    /// The url for the source file.
     private let sourceFileURL: NSURL
+
+    /// The number of frames we are going to use to create the gif.
     private let frameCount: Int
+
+    /// The amount of time each frame will remain on screen in the gif.
     private let delayTime: Float
+
+    /// The number of times the gif will loop (0 is infinite).
     private let loopCount: Int
+
+    /// The destination path for the generated file.
     private var destinationFileURL: NSURL?
     
     /// Create a GIF from a movie stored at the given URL.
