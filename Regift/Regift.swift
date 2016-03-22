@@ -54,6 +54,12 @@ public struct Regift {
     /// The url for the source file.
     private let sourceFileURL: NSURL
 
+    /// The point in time in the source which we will start from.
+    private var startTime: Float = 0
+
+    /// The desired duration of the gif.
+    private var duration: Float
+
     /// The total length of the movie, in seconds.
     private var movieLength: Float
 
@@ -78,6 +84,7 @@ public struct Regift {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
+        self.duration = movieLength
         self.delayTime = delayTime
         self.loopCount = loopCount
         self.destinationFileURL = destinationFileURL
@@ -103,13 +110,13 @@ public struct Regift {
         ]
 
         // How far along the video track we want to move, in seconds.
-        let increment = Float(movieLength) / Float(frameCount)
+        let increment = Float(duration) / Float(frameCount)
         
         // Add each of the frames to the buffer
         var timePoints: [TimePoint] = []
         
         for frameNumber in 0 ..< frameCount {
-            let seconds: Float64 = Float64(increment) * Float64(frameNumber)
+            let seconds: Float64 = Float64(startTime) + (Float64(increment) * Float64(frameNumber))
             let time = CMTimeMakeWithSeconds(seconds, Constants.TimeInterval)
             
             timePoints.append(time)
