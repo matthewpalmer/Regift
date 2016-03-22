@@ -54,6 +54,9 @@ public struct Regift {
     /// The url for the source file.
     private let sourceFileURL: NSURL
 
+    /// The total length of the movie, in seconds.
+    private var movieLength: Float
+
     /// The number of frames we are going to use to create the gif.
     private let frameCount: Int
 
@@ -74,6 +77,7 @@ public struct Regift {
     public init(sourceFileURL: NSURL, destinationFileURL: NSURL?, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
+        self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
         self.delayTime = delayTime
         self.loopCount = loopCount
         self.destinationFileURL = destinationFileURL
@@ -97,9 +101,6 @@ public struct Regift {
                 kCGImagePropertyGIFDelayTime as String:delayTime
             ]
         ]
-        
-        // The total length of the movie, in seconds.
-        let movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
 
         // How far along the video track we want to move, in seconds.
         let increment = Float(movieLength) / Float(frameCount)
