@@ -41,6 +41,11 @@ private struct Group {
 ///      let regift = Regift(sourceFileURL: movieFileURL, frameCount: 24, delayTime: 0.5, loopCount: 7)
 ///      print(regift.createGif())
 ///
+///      // OR
+///
+///      let trimmedRegift = Regift(sourceFileURL: movieFileURL, startTime: 30, duration: 15, frameRate: 15)
+///      print(trimmedRegift.createGif())
+///
 public struct Regift {
     private struct Constants {
         static let FileName = "regift.gif"
@@ -90,9 +95,38 @@ public struct Regift {
         self.destinationFileURL = destinationFileURL
         self.frameCount = frameCount
     }
+
+    /// Create a GIF from a movie stored at the given URL, trimmed to a specific section.
+    ///
+    /// :param: startTime The time at which to start the gif, trimmed out of the source file.
+    /// :param: duration The length of time from startTime to include in the trimmed file.
+    /// :param: frameRate The framerate desired for the resultant gif.
+    /// :param: loopCount The number of times the GIF will repeat. This defaults to 0, which means that the GIF will repeat infinitely.
+    public init(sourceFileURL: NSURL, destinationFileURL: NSURL?, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+        self.sourceFileURL = sourceFileURL
+        self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
+        self.destinationFileURL = destinationFileURL
+        self.startTime = startTime
+        self.duration = duration
+
+        // The delay time is based on the desired framerate of the gif.
+        self.delayTime = (1.0 / Float(frameRate))
+
+        // The frame count is based on the desired length and framerate of the gif.
+        self.frameCount = Int(duration * Float(frameRate))
+
+        // The total length of the file, in seconds.
+        self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
+
+        self.loopCount = loopCount
+    }
     
     public init(sourceFileURL: NSURL, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
         self.init(sourceFileURL:sourceFileURL, destinationFileURL:nil, frameCount:frameCount, delayTime:delayTime, loopCount:loopCount)
+    }
+
+    public init(sourceFileURL: NSURL, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+        self.init(sourceFileURL: sourceFileURL, destinationFileURL: nil, startTime: startTime, duration: duration, frameRate: frameRate, loopCount: loopCount)
     }
     
     /// Get the URL of the GIF created with the attributes provided in the initializer.
