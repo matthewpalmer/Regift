@@ -80,11 +80,16 @@ public struct Regift {
     /// The destination path for the generated file.
     private var destinationFileURL: NSURL?
     
-    /// Create a GIF from a movie stored at the given URL.
-    ///
-    /// :param: frameCount The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
-    /// :param: delayTime The amount of time each frame exists for in the GIF.
-    /// :param: loopCount The number of times the GIF will repeat. This defaults to 0, which means that the GIF will repeat infinitely.
+    /**
+        Create a GIF from a movie stored at the given URL. This converts the whole video to a GIF meeting the requested output parameters.
+
+        - parameters:
+            - sourceFileURL: The source file to create the GIF from.
+            - destinationFileURL: An optional destination file to write the GIF to. If you don't include this, a default path will be provided.
+            - frameCount: The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
+            - delayTime: The amount of time each frame exists for in the GIF.
+            - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+     */
     public init(sourceFileURL: NSURL, destinationFileURL: NSURL?, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
@@ -96,12 +101,17 @@ public struct Regift {
         self.frameCount = frameCount
     }
 
-    /// Create a GIF from a movie stored at the given URL, trimmed to a specific section.
-    ///
-    /// :param: startTime The time at which to start the gif, trimmed out of the source file.
-    /// :param: duration The length of time from startTime to include in the trimmed file.
-    /// :param: frameRate The framerate desired for the resultant gif.
-    /// :param: loopCount The number of times the GIF will repeat. This defaults to 0, which means that the GIF will repeat infinitely.
+    /**
+        Create a GIF from a movie stored at the given URL. This allows you to choose a start time and duration in the source material that will be used to create the GIF which meets the output parameters.
+
+        - parameters:
+            - sourceFileURL: The source file to create the GIF from.
+            - destinationFileURL: An optional destination file to write the GIF to. If you don't include this, a default path will be provided.
+            - startTime: The time in seconds in the source material at which you want the GIF to start.
+            - duration: The duration in seconds that you want to pull from the source material.
+            - frameRate: The desired frame rate of the outputted GIF.
+            - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+     */
     public init(sourceFileURL: NSURL, destinationFileURL: NSURL?, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
@@ -128,8 +138,12 @@ public struct Regift {
     public init(sourceFileURL: NSURL, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
         self.init(sourceFileURL: sourceFileURL, destinationFileURL: nil, startTime: startTime, duration: duration, frameRate: frameRate, loopCount: loopCount)
     }
-    
-    /// Get the URL of the GIF created with the attributes provided in the initializer.
+
+    /**
+        Get the URL of the GIF created with the attributes provided in the initializer.
+
+        - returns: The path to the created GIF, or `nil` if there was an error creating it.
+    */
     public func createGif() -> NSURL? {
 
         let fileProperties = [kCGImagePropertyGIFDictionary as String:[
@@ -163,13 +177,18 @@ public struct Regift {
             return nil
         }
     }
+
+    /**
+        Create a GIF using the given time points in a movie file stored in this Regift's `asset`.
     
-    /// Create a GIF using the given time points in a movie file stored at the URL provided.
-    ///
-    /// :param: timePoints An array of `TimePoint`s (which are typealiased `CMTime`s) to use as the frames in the GIF.
-    /// :param: URL The URL of the video file to convert
-    /// :param: fileProperties The desired attributes of the resulting GIF.
-    /// :param: frameProperties The desired attributes of each frame in the resulting GIF.
+        - parameters:
+            - timePoints: timePoints An array of `TimePoint`s (which are typealiased `CMTime`s) to use as the frames in the GIF.
+            - fileProperties: The desired attributes of the resulting GIF.
+            - frameProperties: The desired attributes of each frame in the resulting GIF.
+            - frameCount: The desired number of frames for the GIF. *NOTE: This seems redundant to me, as `timePoints.count` should really be what we are after, but I'm hesitant to change the API here.*
+
+        - returns: The path to the created GIF, or `nil` if there was an error creating it.
+    */
     public func createGIFForTimePoints(timePoints: [TimePoint], fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) throws -> NSURL {
         // Ensure the source media is a valid file.
         guard asset.tracksWithMediaCharacteristic(AVMediaCharacteristicVisual).count > 0 else {
