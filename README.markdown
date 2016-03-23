@@ -68,3 +68,11 @@ Regift.createGIFFromSource(videoURL, startTime: startTime, duration: duration, f
 
 ## Acknowledgements
 Thanks to [Rob Mayoff's Gist](https://gist.github.com/mayoff/4969104), without which this library wouldn't exist.
+
+My personal thanks to all of Regift’s contributors:
+
+* caughtinflux
+* samuelbeek
+* sebyddd
+* nakajijapan
+* dbburgess
