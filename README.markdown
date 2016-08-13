@@ -6,6 +6,27 @@ Easily convert a video to a GIF on iOS and OSX.
 [![Platform](https://img.shields.io/cocoapods/p/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
+<br />
+<br />
+<br />
+
+<p align="center">
+  🚀
+  <br/>
+  <br/>
+
+  I also make <a href="http://matthewpalmer.net/rocket" alt="Download Rocket for free" title="Rocket home page">Rocket</a>, an app that gives you Slack-style emoji everywhere on your Mac.
+
+  <br />
+
+  <img alt="Demo image of Rocket" title="Rocket provides better emoji on Macs" src="http://matthewpalmer.net/rocket/screenshot.gif" />
+</p>
+
+<br/>
+<br />
+<br />
+<br />
+
 ## Installation
 ### Cocoapods
 
