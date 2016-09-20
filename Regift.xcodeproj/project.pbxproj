@@ -15,6 +15,7 @@
 		0E0C3BE11A4E9E6400325FF0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE01A4E9E6400325FF0 /* MobileCoreServices.framework */; };
 		0E0C3BE51A4EA2F100325FF0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
 		0EB2CE501B807C2600854BDD /* regift-test-file.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */; };
+		AE9B5BA81D8FC0E500F22881 /* AVAssetImageGeneratorTimePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9B5BA71D8FC0E500F22881 /* AVAssetImageGeneratorTimePoints.swift */; };
 		DC50F2D61C82B858008518EC /* RegiftOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = DC50F2D51C82B858008518EC /* RegiftOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC50F2DC1C82B8FD008518EC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */; };
 		DC50F2DD1C82B8FD008518EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C3BDE1A4E9C1900325FF0 /* ImageIO.framework */; };
@@ -54,6 +55,7 @@
 		0E0C3BE21A4EA2A400325FF0 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		0E0C3BE41A4EA2F100325FF0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0EB2CE4F1B807C2600854BDD /* regift-test-file.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "regift-test-file.mov"; sourceTree = "<group>"; };
+		AE9B5BA71D8FC0E500F22881 /* AVAssetImageGeneratorTimePoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAssetImageGeneratorTimePoints.swift; sourceTree = "<group>"; };
 		DC50F2D31C82B858008518EC /* RegiftOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RegiftOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC50F2D51C82B858008518EC /* RegiftOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegiftOSX.h; sourceTree = "<group>"; };
 		DC50F2D71C82B858008518EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				0E0C3BC51A4E9A7D00325FF0 /* Regift.h */,
 				0E0C3BDC1A4E9A9000325FF0 /* Regift.swift */,
+				AE9B5BA71D8FC0E500F22881 /* AVAssetImageGeneratorTimePoints.swift */,
 				0E0C3BC31A4E9A7D00325FF0 /* Supporting Files */,
 			);
 			path = Regift;
@@ -301,9 +304,11 @@
 					};
 					DC50F2D21C82B858008518EC = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0800;
 					};
 					DC50F3021C82C85B008518EC = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -366,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E0C3BDD1A4E9A9000325FF0 /* Regift.swift in Sources */,
+				AE9B5BA81D8FC0E500F22881 /* AVAssetImageGeneratorTimePoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
