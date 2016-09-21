@@ -19,7 +19,7 @@ import AVFoundation
 public typealias TimePoint = CMTime
 
 /// Errors thrown by Regift
-public enum RegiftError: String, ErrorType {
+public enum RegiftError: String, Error {
     case DestinationNotFound = "The temp file destination could not be created or found"
     case SourceFormatInvalid = "The source file does not appear to be a valid format"
     case AddFrameToDestination = "An error occurred when adding a frame to the destination"
@@ -28,10 +28,10 @@ public enum RegiftError: String, ErrorType {
 
 // Convenience struct for managing dispatch groups.
 private struct Group {
-    let group = dispatch_group_create()
-    func enter() { dispatch_group_enter(group) }
-    func leave() { dispatch_group_leave(group) }
-    func wait() { dispatch_group_wait(group, DISPATCH_TIME_FOREVER) }
+    let group = DispatchGroup()
+    func enter() { group.enter() }
+    func leave() { group.leave() }
+    func wait() { let _ = group.wait(timeout: DispatchTime.distantFuture) }
 }
 
 /// Easily convert a video to a GIF. It can convert the whole thing, or you can choose a section to trim out.
@@ -74,12 +74,12 @@ public struct Regift {
             - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
     */
     public static func createGIFFromSource(
-        sourceFileURL: NSURL,
-        destinationFileURL: NSURL? = nil,
+        _ sourceFileURL: URL,
+        destinationFileURL: URL? = nil,
         frameCount: Int,
         delayTime: Float,
         loopCount: Int = 0,
-        completion: (result: NSURL?) -> Void) {
+        completion: (_ result: URL?) -> Void) {
             let gift = Regift(
                 sourceFileURL: sourceFileURL,
                 destinationFileURL: destinationFileURL,
@@ -88,7 +88,7 @@ public struct Regift {
                 loopCount: loopCount
             )
 
-            completion(result: gift.createGif())
+            completion(gift.createGif())
     }
 
     /**
@@ -104,13 +104,13 @@ public struct Regift {
             - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
     */
     public static func createGIFFromSource(
-        sourceFileURL: NSURL,
-        destinationFileURL: NSURL? = nil,
+        _ sourceFileURL: URL,
+        destinationFileURL: URL? = nil,
         startTime: Float,
         duration: Float,
         frameRate: Int,
         loopCount: Int = 0,
-        completion: (result: NSURL?) -> Void) {
+        completion: (_ result: URL?) -> Void) {
             let gift = Regift(
                 sourceFileURL: sourceFileURL,
                 destinationFileURL: destinationFileURL,
@@ -120,41 +120,41 @@ public struct Regift {
                 loopCount: loopCount
             )
 
-            completion(result: gift.createGif())
+            completion(gift.createGif())
     }
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let FileName = "regift.gif"
         static let TimeInterval: Int32 = 600
         static let Tolerance = 0.01
     }
 
     /// A reference to the asset we are converting.
-    private var asset: AVAsset
+    fileprivate var asset: AVAsset
 
     /// The url for the source file.
-    private let sourceFileURL: NSURL
+    fileprivate let sourceFileURL: URL
 
     /// The point in time in the source which we will start from.
-    private var startTime: Float = 0
+    fileprivate var startTime: Float = 0
 
     /// The desired duration of the gif.
-    private var duration: Float
+    fileprivate var duration: Float
 
     /// The total length of the movie, in seconds.
-    private var movieLength: Float
+    fileprivate var movieLength: Float
 
     /// The number of frames we are going to use to create the gif.
-    private let frameCount: Int
+    fileprivate let frameCount: Int
 
     /// The amount of time each frame will remain on screen in the gif.
-    private let delayTime: Float
+    fileprivate let delayTime: Float
 
     /// The number of times the gif will loop (0 is infinite).
-    private let loopCount: Int
+    fileprivate let loopCount: Int
 
     /// The destination path for the generated file.
-    private var destinationFileURL: NSURL?
+    fileprivate var destinationFileURL: URL?
     
     /**
         Create a GIF from a movie stored at the given URL. This converts the whole video to a GIF meeting the requested output parameters.
@@ -166,9 +166,9 @@ public struct Regift {
             - delayTime: The amount of time each frame exists for in the GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
      */
-    public init(sourceFileURL: NSURL, destinationFileURL: NSURL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
         self.sourceFileURL = sourceFileURL
-        self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
+        self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
         self.duration = movieLength
         self.delayTime = delayTime
@@ -188,9 +188,9 @@ public struct Regift {
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
      */
-    public init(sourceFileURL: NSURL, destinationFileURL: NSURL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
         self.sourceFileURL = sourceFileURL
-        self.asset = AVURLAsset(URL: sourceFileURL, options: nil)
+        self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.destinationFileURL = destinationFileURL
         self.startTime = startTime
         self.duration = duration
@@ -212,12 +212,12 @@ public struct Regift {
 
         - returns: The path to the created GIF, or `nil` if there was an error creating it.
     */
-    public func createGif() -> NSURL? {
+    public func createGif() -> URL? {
 
         let fileProperties = [kCGImagePropertyGIFDictionary as String:[
-            kCGImagePropertyGIFLoopCount as String: NSNumber(int: Int32(loopCount))],
+            kCGImagePropertyGIFLoopCount as String: NSNumber(value: Int32(loopCount) as Int32)],
             kCGImagePropertyGIFHasGlobalColorMap as String: NSValue(nonretainedObject: true)
-        ]
+        ] as [String : Any]
         
         let frameProperties = [
             kCGImagePropertyGIFDictionary as String:[
@@ -239,7 +239,7 @@ public struct Regift {
         }
         
         do {
-            return try createGIFForTimePoints(timePoints, fileProperties: fileProperties, frameProperties: frameProperties, frameCount: frameCount)
+            return try createGIFForTimePoints(timePoints, fileProperties: fileProperties as [String : AnyObject], frameProperties: frameProperties as [String : AnyObject], frameCount: frameCount)
             
         } catch {
             return nil
@@ -257,25 +257,25 @@ public struct Regift {
 
         - returns: The path to the created GIF, or `nil` if there was an error creating it.
     */
-    public func createGIFForTimePoints(timePoints: [TimePoint], fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) throws -> NSURL {
+    public func createGIFForTimePoints(_ timePoints: [TimePoint], fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) throws -> URL {
         // Ensure the source media is a valid file.
-        guard asset.tracksWithMediaCharacteristic(AVMediaCharacteristicVisual).count > 0 else {
+        guard asset.tracks(withMediaCharacteristic: AVMediaCharacteristicVisual).count > 0 else {
             throw RegiftError.SourceFormatInvalid
         }
 
-        var fileURL:NSURL?
+        var fileURL:URL?
         if self.destinationFileURL != nil {
             fileURL = self.destinationFileURL
         } else {
-            let temporaryFile = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(Constants.FileName)
-            fileURL = NSURL(fileURLWithPath: temporaryFile)
+            let temporaryFile = (NSTemporaryDirectory() as NSString).appendingPathComponent(Constants.FileName)
+            fileURL = URL(fileURLWithPath: temporaryFile)
         }
         
-        guard let destination = CGImageDestinationCreateWithURL(fileURL!, kUTTypeGIF, frameCount, nil) else {
+        guard let destination = CGImageDestinationCreateWithURL(fileURL! as CFURL, kUTTypeGIF, frameCount, nil) else {
             throw RegiftError.DestinationNotFound
         }
         
-        CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
+        CGImageDestinationSetProperties(destination, fileProperties as CFDictionary)
         
         let generator = AVAssetImageGenerator(asset: asset)
         
@@ -288,7 +288,7 @@ public struct Regift {
         // Transform timePoints to times for the async asset generator method.
         var times = [NSValue]()
         for time in timePoints {
-            times.append(NSValue(CMTime: time))
+            times.append(NSValue(time: time))
         }
 
         // Create a dispatch group to force synchronous behavior on an asynchronous method.
@@ -296,17 +296,17 @@ public struct Regift {
         var dispatchError: Bool = false
         gifGroup.enter()
 
-        generator.generateCGImagesAsynchronouslyForTimes(times, completionHandler: { (requestedTime, image, actualTime, result, error) in
-            guard let imageRef = image where error == nil else {
+        generator.generateCGImagesAsynchronously(forTimes: times, completionHandler: { (requestedTime, image, actualTime, result, error) in
+            guard let imageRef = image , error == nil else {
                 print("An error occurred: \(error), image is \(image)")
                 dispatchError = true
                 gifGroup.leave()
                 return
             }
 
-            CGImageDestinationAddImage(destination, imageRef, frameProperties as CFDictionaryRef)
+            CGImageDestinationAddImage(destination, imageRef, frameProperties as CFDictionary)
 
-            if requestedTime == times.last?.CMTimeValue {
+            if requestedTime == times.last?.timeValue {
                 gifGroup.leave()
             }
         })
@@ -319,7 +319,7 @@ public struct Regift {
             throw RegiftError.AddFrameToDestination
         }
         
-        CGImageDestinationSetProperties(destination, fileProperties as CFDictionaryRef)
+        CGImageDestinationSetProperties(destination, fileProperties as CFDictionary)
         
         // Finalize the gif
         if !CGImageDestinationFinalize(destination) {
