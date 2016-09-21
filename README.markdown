@@ -1,6 +1,7 @@
 # Regift
 Easily convert a video to a GIF on iOS and OSX.
 
+[![Travis](https://travis-ci.org/matthewpalmer/Regift.svg?branch=master)](https://travis-ci.org/matthewpalmer/Regift)
 [![Version](https://img.shields.io/cocoapods/v/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
 [![License](https://img.shields.io/cocoapods/l/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
 [![Platform](https://img.shields.io/cocoapods/p/Regift.svg?style=flat)](http://cocoadocs.org/docsets/Regift)
