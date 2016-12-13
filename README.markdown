@@ -63,7 +63,7 @@ let startTime = Float(30)
 let duration  = Float(15)
 let frameRate = 15
 
-let trimmedRegift = Regift(sourceFileURL: URL, startTime: startTime, duration: duration, frameRate: frameRate, loopCount: loopCount)
+let trimmedRegift = Regift(sourceFileURL: videoURL, startTime: startTime, duration: duration, frameRate: frameRate, loopCount: loopCount)
 print("Gif saved to \(trimmedRegift.createGif())")
 ```
 
