@@ -79,13 +79,15 @@ public struct Regift {
         frameCount: Int,
         delayTime: Float,
         loopCount: Int = 0,
+        imageMaxPixelSize: UInt = 0,
         completion: (_ result: URL?) -> Void) {
             let gift = Regift(
                 sourceFileURL: sourceFileURL,
                 destinationFileURL: destinationFileURL,
                 frameCount: frameCount,
                 delayTime: delayTime,
-                loopCount: loopCount
+                loopCount: loopCount,
+                imageMaxPixelSize : imageMaxPixelSize
             )
 
             completion(gift.createGif())
@@ -101,6 +103,7 @@ public struct Regift {
             - duration: The duration in seconds that you want to pull from the source material.
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels. This defaults to `0` means that we
             - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
     */
     public static func createGIFFromSource(
@@ -110,17 +113,19 @@ public struct Regift {
         duration: Float,
         frameRate: Int,
         loopCount: Int = 0,
+        imageMaxPixelSize: UInt = 0,
         completion: (_ result: URL?) -> Void) {
-            let gift = Regift(
-                sourceFileURL: sourceFileURL,
-                destinationFileURL: destinationFileURL,
-                startTime: startTime,
-                duration: duration,
-                frameRate: frameRate,
-                loopCount: loopCount
-            )
+        let gift = Regift(
+            sourceFileURL: sourceFileURL,
+            destinationFileURL: destinationFileURL,
+            startTime: startTime,
+            duration: duration,
+            frameRate: frameRate,
+            loopCount: loopCount,
+            imageMaxPixelSize : imageMaxPixelSize
+        )
 
-            completion(gift.createGif())
+        completion(gift.createGif())
     }
 
     fileprivate struct Constants {
@@ -153,6 +158,9 @@ public struct Regift {
     /// The number of times the gif will loop (0 is infinite).
     fileprivate let loopCount: Int
 
+    ///  Rescale the image to the maximum width and height in pixels. (0 correspond to the default video size)
+    fileprivate let imageMaxPixelSize: UInt
+
     /// The destination path for the generated file.
     fileprivate var destinationFileURL: URL?
     
@@ -165,8 +173,9 @@ public struct Regift {
             - frameCount: The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
             - delayTime: The amount of time each frame exists for in the GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels. This defaults to `0` means that we use the asset size to determine the maximum value
      */
-    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0, imageMaxPixelSize : UInt = 0 ) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
@@ -175,6 +184,7 @@ public struct Regift {
         self.loopCount = loopCount
         self.destinationFileURL = destinationFileURL
         self.frameCount = frameCount
+        self.imageMaxPixelSize = imageMaxPixelSize
     }
 
     /**
@@ -187,8 +197,9 @@ public struct Regift {
             - duration: The duration in seconds that you want to pull from the source material.
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels. This defaults to `0` means that we use the asset size to determine the maximum value
      */
-    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0,  imageMaxPixelSize : UInt = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.destinationFileURL = destinationFileURL
@@ -205,6 +216,8 @@ public struct Regift {
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
 
         self.loopCount = loopCount
+
+        self.imageMaxPixelSize = imageMaxPixelSize
     }
 
     /**
@@ -214,15 +227,24 @@ public struct Regift {
     */
     public func createGif() -> URL? {
 
+        // Compute the imageMaxPixelSize when using default 0 value
+        var maxPixelSize = imageMaxPixelSize
+        if maxPixelSize == 0{
+            let videoTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
+            maxPixelSize = UInt(max(videoTrack.naturalSize.width,videoTrack.naturalSize.height))
+        }
+
         let fileProperties = [kCGImagePropertyGIFDictionary as String:[
             kCGImagePropertyGIFLoopCount as String: NSNumber(value: Int32(loopCount) as Int32)],
-            kCGImagePropertyGIFHasGlobalColorMap as String: NSValue(nonretainedObject: true)
-        ] as [String : Any]
-        
-        let frameProperties = [
+                              kCGImagePropertyGIFHasGlobalColorMap as String: NSValue(nonretainedObject: true)
+            ] as [String : Any]
+
+
+        let frameProperties:[String : Any] = [
             kCGImagePropertyGIFDictionary as String:[
                 kCGImagePropertyGIFDelayTime as String:delayTime
-            ]
+            ],
+            kCGImageDestinationImageMaxPixelSize as String:maxPixelSize
         ]
 
         // How far along the video track we want to move, in seconds.
