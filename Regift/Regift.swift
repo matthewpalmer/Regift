@@ -231,8 +231,11 @@ public struct Regift {
         // Compute the imageMaxPixelSize when using default 0 value
         var maxPixelSize = imageMaxPixelSize
         if maxPixelSize == 0{
-            let videoTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
-            maxPixelSize = UInt(max(videoTrack.naturalSize.width,videoTrack.naturalSize.height))
+            let tracks = asset.tracks(withMediaType: AVMediaTypeVideo)
+            if tracks.count > 0 {
+                let videoTrack = tracks[0]
+                maxPixelSize = UInt(max(videoTrack.naturalSize.width,videoTrack.naturalSize.height))
+            }
         }
 
         let fileProperties = [kCGImagePropertyGIFDictionary as String:[
