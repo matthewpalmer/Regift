@@ -71,6 +71,7 @@ public struct Regift {
             - frameCount: The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
             - delayTime: The amount of time each frame exists for in the GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels.This defaults to `0` means that we use the asset natural size to determine the maximum value.
             - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
     */
     public static func createGIFFromSource(
@@ -103,7 +104,7 @@ public struct Regift {
             - duration: The duration in seconds that you want to pull from the source material.
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
-            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels. This defaults to `0` means that we
+            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels.This defaults to `0` means that we use the asset natural size to determine the maximum value.
             - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
     */
     public static func createGIFFromSource(
@@ -173,7 +174,7 @@ public struct Regift {
             - frameCount: The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
             - delayTime: The amount of time each frame exists for in the GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
-            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels. This defaults to `0` means that we use the asset size to determine the maximum value
+            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels.This defaults to `0` means that we use the asset natural size to determine the maximum value.
      */
     public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0, imageMaxPixelSize : UInt = 0 ) {
         self.sourceFileURL = sourceFileURL
@@ -197,7 +198,7 @@ public struct Regift {
             - duration: The duration in seconds that you want to pull from the source material.
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
-            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels. This defaults to `0` means that we use the asset size to determine the maximum value
+            - imageMaxPixelSize: Rescale the image to the maximum width and height in pixels.This defaults to `0` means that we use the asset natural size to determine the maximum value.
      */
     public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0,  imageMaxPixelSize : UInt = 0) {
         self.sourceFileURL = sourceFileURL
