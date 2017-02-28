@@ -297,6 +297,11 @@ public struct Regift {
         gifGroup.enter()
 
         generator.generateCGImagesAsynchronously(forTimes: times, completionHandler: { (requestedTime, image, actualTime, result, error) in
+            // if not return when error occured and the time is the last time, gifGroup.leave() will get crash
+            guard !dispatchError else {
+                return
+            }
+            
             guard let imageRef = image , error == nil else {
                 print("An error occurred: \(error), image is \(image)")
                 dispatchError = true
