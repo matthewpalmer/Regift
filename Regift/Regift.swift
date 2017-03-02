@@ -38,7 +38,7 @@ private struct Group {
 ///
 /// Synchronous Usage:
 ///
-///      let regift = Regift(sourceFileURL: movieFileURL, frameCount: 24, delayTime: 0.5, loopCount: 7)
+///      let regift = Regift(sourceFileURL: movieFileURL, frameCount: 24, delayTime: 0.5, loopCount: 7, width: 240, height: 240)
 ///      print(regift.createGif())
 ///
 ///      // OR
@@ -54,7 +54,7 @@ private struct Group {
 ///
 ///      // OR
 ///
-///      let trimmedRegift = Regift.createGIFFromSource(movieFileURL, startTime: 30, duration: 15, frameRate: 15) { (result) in
+///      let trimmedRegift = Regift.createGIFFromSource(movieFileURL, startTime: 30, duration: 15, frameRate: 15, loopCount: 0, width: 240, height: 240) { (result) in
 ///          print(result)
 ///      }
 ///
@@ -71,6 +71,8 @@ public struct Regift {
             - frameCount: The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
             - delayTime: The amount of time each frame exists for in the GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - width: The maximum width of generated GIF. This defaults to `0`, means not compressed.
+            - height: The maximum height of generated GIF. This defaults to `0`, means not compressed. Setting width/height will not change the image aspect ratio.
             - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
     */
     public static func createGIFFromSource(
@@ -79,13 +81,17 @@ public struct Regift {
         frameCount: Int,
         delayTime: Float,
         loopCount: Int = 0,
+        width: Int = 0,
+        height: Int = 0,
         completion: (_ result: URL?) -> Void) {
             let gift = Regift(
                 sourceFileURL: sourceFileURL,
                 destinationFileURL: destinationFileURL,
                 frameCount: frameCount,
                 delayTime: delayTime,
-                loopCount: loopCount
+                loopCount: loopCount,
+                width: width,
+                height: height
             )
 
             completion(gift.createGif())
@@ -101,6 +107,8 @@ public struct Regift {
             - duration: The duration in seconds that you want to pull from the source material.
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - width: The maximum width of generated GIF. This defaults to `0`, means not compressed.
+            - height: The maximum height of generated GIF. This defaults to `0`, means not compressed. Setting width/height will not change the image aspect ratio.
             - completion: A block that will be called when the GIF creation is completed. The `result` parameter provides the path to the file, or will be `nil` if there was an error.
     */
     public static func createGIFFromSource(
@@ -110,6 +118,8 @@ public struct Regift {
         duration: Float,
         frameRate: Int,
         loopCount: Int = 0,
+        width: Int = 0,
+        height: Int = 0,
         completion: (_ result: URL?) -> Void) {
             let gift = Regift(
                 sourceFileURL: sourceFileURL,
@@ -117,7 +127,9 @@ public struct Regift {
                 startTime: startTime,
                 duration: duration,
                 frameRate: frameRate,
-                loopCount: loopCount
+                loopCount: loopCount,
+                width: width,
+                height: height
             )
 
             completion(gift.createGif())
@@ -156,6 +168,10 @@ public struct Regift {
     /// The destination path for the generated file.
     fileprivate var destinationFileURL: URL?
     
+    /// The maximum width/height for the generated file (0 will not compress).
+    fileprivate var width: Int
+    fileprivate var height: Int
+    
     /**
         Create a GIF from a movie stored at the given URL. This converts the whole video to a GIF meeting the requested output parameters.
 
@@ -165,8 +181,10 @@ public struct Regift {
             - frameCount: The number of frames to include in the gif; each frame has the same duration and is spaced evenly over the video.
             - delayTime: The amount of time each frame exists for in the GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - width: The maximum width of generated GIF. This defaults to `0`, means not compressed.
+            - height: The maximum height of generated GIF. This defaults to `0`, means not compressed. Setting width/height will not change the image aspect ratio.
      */
-    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0, width: Int = 0, height: Int = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
@@ -175,6 +193,8 @@ public struct Regift {
         self.loopCount = loopCount
         self.destinationFileURL = destinationFileURL
         self.frameCount = frameCount
+        self.width = width
+        self.height = height
     }
 
     /**
@@ -187,8 +207,10 @@ public struct Regift {
             - duration: The duration in seconds that you want to pull from the source material.
             - frameRate: The desired frame rate of the outputted GIF.
             - loopCount: The number of times the GIF will repeat. This defaults to `0`, which means that the GIF will repeat infinitely.
+            - width: The maximum width of generated GIF. This defaults to `0`, means not compressed.
+            - height: The maximum height of generated GIF. This defaults to `0`, means not compressed. Setting width/height will not change the image aspect ratio.
      */
-    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0, width: Int = 0, height: Int = 0) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.destinationFileURL = destinationFileURL
@@ -205,6 +227,8 @@ public struct Regift {
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
 
         self.loopCount = loopCount
+        self.width = width
+        self.height = height
     }
 
     /**
@@ -239,7 +263,7 @@ public struct Regift {
         }
         
         do {
-            return try createGIFForTimePoints(timePoints, fileProperties: fileProperties as [String : AnyObject], frameProperties: frameProperties as [String : AnyObject], frameCount: frameCount)
+            return try createGIFForTimePoints(timePoints, fileProperties: fileProperties as [String : AnyObject], frameProperties: frameProperties as [String : AnyObject], frameCount: frameCount, width: width, height: height)
             
         } catch {
             return nil
@@ -254,10 +278,12 @@ public struct Regift {
             - fileProperties: The desired attributes of the resulting GIF.
             - frameProperties: The desired attributes of each frame in the resulting GIF.
             - frameCount: The desired number of frames for the GIF. *NOTE: This seems redundant to me, as `timePoints.count` should really be what we are after, but I'm hesitant to change the API here.*
+            - width: The maximum width of generated GIF. This defaults to `0`, means not compressed.
+            - height: The maximum height of generated GIF. This defaults to `0`, means not compressed. Setting width/height will not change the image aspect ratio.
 
         - returns: The path to the created GIF, or `nil` if there was an error creating it.
     */
-    public func createGIFForTimePoints(_ timePoints: [TimePoint], fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) throws -> URL {
+    public func createGIFForTimePoints(_ timePoints: [TimePoint], fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int, width: Int, height: Int) throws -> URL {
         // Ensure the source media is a valid file.
         guard asset.tracks(withMediaCharacteristic: AVMediaCharacteristicVisual).count > 0 else {
             throw RegiftError.SourceFormatInvalid
@@ -280,6 +306,7 @@ public struct Regift {
         let generator = AVAssetImageGenerator(asset: asset)
         
         generator.appliesPreferredTrackTransform = true
+        generator.maximumSize = CGSize(width: width, height: height)
         
         let tolerance = CMTimeMakeWithSeconds(Constants.Tolerance, Constants.TimeInterval)
         generator.requestedTimeToleranceBefore = tolerance
