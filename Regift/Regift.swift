@@ -259,7 +259,7 @@ public struct Regift {
     */
     public func createGIFForTimePoints(_ timePoints: [TimePoint], fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) throws -> URL {
         // Ensure the source media is a valid file.
-        guard asset.tracks(withMediaCharacteristic: AVMediaCharacteristicVisual).count > 0 else {
+        guard asset.tracks(withMediaCharacteristic: AVMediaCharacteristic.visual).count > 0 else {
             throw RegiftError.SourceFormatInvalid
         }
 
@@ -298,7 +298,7 @@ public struct Regift {
 
         generator.generateCGImagesAsynchronously(forTimes: times, completionHandler: { (requestedTime, image, actualTime, result, error) in
             guard let imageRef = image , error == nil else {
-                print("An error occurred: \(error), image is \(image)")
+                
                 dispatchError = true
                 gifGroup.leave()
                 return
