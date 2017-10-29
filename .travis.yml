@@ -1,7 +1,7 @@
 # references:
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
-osx_image: xcode8
+osx_image: xcode9
 language: objective-c
 # cache: cocoapods
 # podfile: Example/Podfile
@@ -11,6 +11,6 @@ language: objective-c
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
-- set -o pipefail && xcodebuild test -project Regift.xcodeproj/ -scheme Regift -destination 'platform=iOS Simulator,name=iPhone 6s Plus' ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- set -o pipefail && xcodebuild test -project Regift.xcodeproj/ -scheme Regift -destination 'platform=iOS Simulator,name=iPhone X' ONLY_ACTIVE_ARCH=NO | xcpretty -c
 - set -o pipefail && xcodebuild test -project Regift.xcodeproj/ -scheme RegiftOSX -destination 'platform=OS X,arch=x86_64' ONLY_ACTIVE_ARCH=NO | xcpretty -c
 - pod lib lint --quick
