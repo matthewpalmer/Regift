@@ -28,19 +28,27 @@ Easily convert a video to a GIF on iOS and OSX.
 <br />
 <br />
 
+## Requirements
+
+- Xcode 9+
+- Swfit 4.0+
+
 ## Installation
 ### Cocoapods
 
-Regift is available through [CocoaPods](http://cocoapods.org), and requires Swift 2. To install
-it, simply add the following line to your Podfile:
+Regift is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
-    pod "Regift"
+```
+pod "Regift"
+```
 
 ### Carthage
 
 Regift is available through [Carthage](https://github.com/Carthage/Carthage).
 
-    github 'matthewpalmer/Regift'
+```
+github 'matthewpalmer/Regift'
+```
 
 ## Quick Start
 
