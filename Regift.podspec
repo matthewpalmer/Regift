@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Regift"
-  s.version          = "1.3.0"
+  s.version          = "1.4.0"
   s.summary          = "Regift helps you easily convert a video to a GIF on iOS."
   s.description      = <<-DESC
                        Regift helps you easily convert a video to a GIF on iOS.

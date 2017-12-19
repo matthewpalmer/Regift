@@ -144,38 +144,38 @@ public struct Regift {
         completion(gift.createGif())
     }
 
-    fileprivate struct Constants {
+    private struct Constants {
         static let FileName = "regift.gif"
         static let TimeInterval: Int32 = 600
         static let Tolerance = 0.01
     }
 
     /// A reference to the asset we are converting.
-    fileprivate var asset: AVAsset
+    private var asset: AVAsset
 
     /// The url for the source file.
-    fileprivate var sourceFileURL: URL?
+    private let sourceFileURL: URL
 
     /// The point in time in the source which we will start from.
-    fileprivate var startTime: Float = 0
+    private var startTime: Float = 0
 
     /// The desired duration of the gif.
-    fileprivate var duration: Float
+    private var duration: Float
 
     /// The total length of the movie, in seconds.
-    fileprivate var movieLength: Float
+    private var movieLength: Float
 
     /// The number of frames we are going to use to create the gif.
-    fileprivate let frameCount: Int
+    private let frameCount: Int
 
     /// The amount of time each frame will remain on screen in the gif.
-    fileprivate let delayTime: Float
+    private let delayTime: Float
 
     /// The number of times the gif will loop (0 is infinite).
-    fileprivate let loopCount: Int
+    private let loopCount: Int
 
     /// The destination path for the generated file.
-    fileprivate var destinationFileURL: URL?
+    private var destinationFileURL: URL?
     
     /**
         Create a GIF from a movie stored at the given URL. This converts the whole video to a GIF meeting the requested output parameters.
@@ -298,7 +298,7 @@ public struct Regift {
     */
     public func createGIFForTimePoints(_ timePoints: [TimePoint], fileProperties: [String: AnyObject], frameProperties: [String: AnyObject], frameCount: Int) throws -> URL {
         // Ensure the source media is a valid file.
-        guard asset.tracks(withMediaCharacteristic: AVMediaCharacteristicVisual).count > 0 else {
+        guard asset.tracks(withMediaCharacteristic: .visual).count > 0 else {
             throw RegiftError.SourceFormatInvalid
         }
 
@@ -337,7 +337,7 @@ public struct Regift {
 
         generator.generateCGImagesAsynchronously(forTimes: times, completionHandler: { (requestedTime, image, actualTime, result, error) in
             guard let imageRef = image , error == nil else {
-                print("An error occurred: \(error), image is \(image)")
+                print("An error occurred: \(String(describing: error)), image is \(String(describing: image))")
                 dispatchError = true
                 gifGroup.leave()
                 return
