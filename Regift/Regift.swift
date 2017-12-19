@@ -154,7 +154,7 @@ public struct Regift {
     private var asset: AVAsset
 
     /// The url for the source file.
-    private let sourceFileURL: URL
+    private var sourceFileURL: URL?
 
     /// The point in time in the source which we will start from.
     private var startTime: Float = 0
