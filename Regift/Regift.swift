@@ -17,6 +17,7 @@ import ImageIO
 import AVFoundation
 
 public typealias TimePoint = CMTime
+public typealias ProgressHandler = (Double) -> Void
 
 /// Errors thrown by Regift
 public enum RegiftError: String, Error {
@@ -81,6 +82,7 @@ public struct Regift {
         delayTime: Float,
         loopCount: Int = 0,
         size: CGSize? = nil,
+        progress: ProgressHandler? = nil,
         completion: (_ result: URL?) -> Void) {
             let gift = Regift(
                 sourceFileURL: sourceFileURL,
@@ -88,7 +90,8 @@ public struct Regift {
                 frameCount: frameCount,
                 delayTime: delayTime,
                 loopCount: loopCount,
-                size: size
+                size: size,
+                progress: progress
             )
 
             completion(gift.createGif())
@@ -115,6 +118,7 @@ public struct Regift {
         frameRate: Int,
         loopCount: Int = 0,
         size: CGSize? = nil,
+        progress: ProgressHandler? = nil,
         completion: (_ result: URL?) -> Void) {
             let gift = Regift(
                 sourceFileURL: sourceFileURL,
@@ -123,7 +127,8 @@ public struct Regift {
                 duration: duration,
                 frameRate: frameRate,
                 loopCount: loopCount,
-                size: size
+                size: size,
+                progress: progress
             )
 
             completion(gift.createGif())
@@ -161,6 +166,9 @@ public struct Regift {
 
     /// The destination path for the generated file.
     private var destinationFileURL: URL?
+
+    /// The handler to inform you about the current GIF export progress
+    private var progress: ProgressHandler?
     
     /// The maximum width/height for the generated file.
     fileprivate let size: CGSize?
@@ -177,7 +185,7 @@ public struct Regift {
             - size: The maximum size of generated GIF. This defaults to `nil`, which specifies the asset’s unscaled dimensions. Setting size will not change the image aspect ratio.
 
      */
-    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0, size: CGSize? = nil) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, frameCount: Int, delayTime: Float, loopCount: Int = 0, size: CGSize? = nil, progress: ProgressHandler? = nil) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
@@ -187,6 +195,7 @@ public struct Regift {
         self.destinationFileURL = destinationFileURL
         self.frameCount = frameCount
         self.size = size
+        self.progress = progress
     }
 
     /**
@@ -202,7 +211,7 @@ public struct Regift {
             - size: The maximum size of generated GIF. This defaults to `nil`, which specifies the asset’s unscaled dimensions. Setting size will not change the image aspect ratio.
 
      */
-    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0, size: CGSize? = nil) {
+    public init(sourceFileURL: URL, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0, size: CGSize? = nil, progress: ProgressHandler? = nil) {
         self.sourceFileURL = sourceFileURL
         self.asset = AVURLAsset(url: sourceFileURL, options: nil)
         self.destinationFileURL = destinationFileURL
@@ -220,6 +229,7 @@ public struct Regift {
 
         self.loopCount = loopCount
         self.size = size
+        self.progress = progress
     }
 
     /**
@@ -315,7 +325,9 @@ public struct Regift {
         var dispatchError: Bool = false
         gifGroup.enter()
 
+        var handledTimes: Double = 0
         generator.generateCGImagesAsynchronously(forTimes: times, completionHandler: { (requestedTime, image, actualTime, result, error) in
+            handledTimes += 1
             guard let imageRef = image , error == nil else {
                 print("An error occurred: \(String(describing: error)), image is \(String(describing: image))")
                 dispatchError = true
@@ -324,7 +336,7 @@ public struct Regift {
             }
 
             CGImageDestinationAddImage(destination, imageRef, frameProperties as CFDictionary)
-
+            self.progress?(min(1.0, handledTimes/max(1.0, Double(times.count))))
             if requestedTime == times.last?.timeValue {
                 gifGroup.leave()
             }
