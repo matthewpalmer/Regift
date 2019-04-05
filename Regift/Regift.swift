@@ -329,6 +329,9 @@ public struct Regift {
             handledTimes += 1
             guard let imageRef = image , error == nil else {
                 print("An error occurred: \(String(describing: error)), image is \(String(describing: image))")
+                if requestedTime == times.last?.timeValue {
+                    gifGroup.leave()
+                }
                 return
             }
 
