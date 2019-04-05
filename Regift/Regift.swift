@@ -322,7 +322,6 @@ public struct Regift {
 
         // Create a dispatch group to force synchronous behavior on an asynchronous method.
         let gifGroup = Group()
-        var dispatchError: Bool = false
         gifGroup.enter()
 
         var handledTimes: Double = 0
@@ -330,8 +329,6 @@ public struct Regift {
             handledTimes += 1
             guard let imageRef = image , error == nil else {
                 print("An error occurred: \(String(describing: error)), image is \(String(describing: image))")
-                dispatchError = true
-                gifGroup.leave()
                 return
             }
 
@@ -344,11 +341,6 @@ public struct Regift {
 
         // Wait for the asynchronous generator to finish.
         gifGroup.wait()
-
-        // If there was an error in the generator, throw the error.
-        if dispatchError {
-            throw RegiftError.AddFrameToDestination
-        }
         
         CGImageDestinationSetProperties(destination, fileProperties as CFDictionary)
         
