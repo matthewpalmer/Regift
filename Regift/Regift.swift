@@ -142,7 +142,7 @@ public struct Regift {
         frameRate: Int,
         loopCount: Int = 0,
         completion: (_ result: URL?) -> Void) {
-        
+
         let gift = Regift(
             asset: asset,
             destinationFileURL: destinationFileURL,
@@ -253,22 +253,17 @@ public struct Regift {
         self.progress = progress
     }
     
-    public init(asset: AVAsset, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+    public init(asset: AVAsset, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0, size: CGSize? = nil, progress: ProgressHandler? = nil) {
         self.asset = asset
         self.destinationFileURL = destinationFileURL
         self.startTime = startTime
         self.duration = duration
-        
-        // The delay time is based on the desired framerate of the gif.
         self.delayTime = (1.0 / Float(frameRate))
-        
-        // The frame count is based on the desired length and framerate of the gif.
         self.frameCount = Int(duration * Float(frameRate))
-        
-        // The total length of the file, in seconds.
         self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
-        
         self.loopCount = loopCount
+        self.size = size
+        self.progress = progress
     }
 
     /**
