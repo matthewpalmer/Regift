@@ -61,9 +61,10 @@ class RegiftTests: XCTestCase {
     }
     
     func testGIFIsSaved() {
-        
         let savedURL = Foundation.URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent("test.gif"))
-        let regift = Regift(sourceFileURL: URL, destinationFileURL: savedURL, frameCount: 16, delayTime: 0.2)
+        let regift = Regift(sourceFileURL: URL, destinationFileURL: savedURL, frameCount: 16, delayTime: 0.2, progress: { (progress) in
+            print(progress)
+        })
         let result = regift.createGif()
         XCTAssertNotNil(result, "The GIF URL should not be nil")
         
