@@ -55,7 +55,7 @@ class RegiftTests: XCTestCase {
             let frameProperties = CGImageSourceCopyPropertiesAtIndex(source!, index, nil)! as NSDictionary
             let gifFrameProperties = frameProperties.object(forKey: kCGImagePropertyGIFDictionary as String)
             print(gifFrameProperties ?? "")
-            let delayTime = (gifFrameProperties as! NSDictionary)[kCGImagePropertyGIFDelayTime as String] as! Float
+            let delayTime = ((gifFrameProperties as! NSDictionary)[kCGImagePropertyGIFDelayTime as String] as! NSNumber).floatValue
             XCTAssertEqual(delayTime, 0.2)
         }
     }
