@@ -292,7 +292,7 @@ public struct Regift {
         
         for frameNumber in 0 ..< frameCount {
             let seconds: Float64 = Float64(startTime) + (Float64(increment) * Float64(frameNumber))
-            let time = CMTimeMakeWithSeconds(seconds, Constants.TimeInterval)
+            let time = CMTimeMakeWithSeconds(seconds, preferredTimescale: Constants.TimeInterval)
             
             timePoints.append(time)
         }
@@ -344,7 +344,7 @@ public struct Regift {
             generator.maximumSize = size
         }
         
-        let tolerance = CMTimeMakeWithSeconds(Constants.Tolerance, Constants.TimeInterval)
+        let tolerance = CMTimeMakeWithSeconds(Constants.Tolerance, preferredTimescale: Constants.TimeInterval)
         generator.requestedTimeToleranceBefore = tolerance
         generator.requestedTimeToleranceAfter = tolerance
 
