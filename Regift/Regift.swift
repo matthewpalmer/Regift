@@ -133,6 +133,27 @@ public struct Regift {
 
             completion(gift.createGif())
     }
+    
+    public static func createGIF(
+        fromAsset asset: AVAsset,
+        destinationFileURL: URL? = nil,
+        startTime: Float,
+        duration: Float,
+        frameRate: Int,
+        loopCount: Int = 0,
+        completion: (_ result: URL?) -> Void) {
+        
+        let gift = Regift(
+            asset: asset,
+            destinationFileURL: destinationFileURL,
+            startTime: startTime,
+            duration: duration,
+            frameRate: frameRate,
+            loopCount: loopCount
+        )
+        
+        completion(gift.createGif())
+    }
 
     private struct Constants {
         static let FileName = "regift.gif"
@@ -144,7 +165,7 @@ public struct Regift {
     private var asset: AVAsset
 
     /// The url for the source file.
-    private let sourceFileURL: URL
+    private var sourceFileURL: URL?
 
     /// The point in time in the source which we will start from.
     private var startTime: Float = 0
@@ -230,6 +251,24 @@ public struct Regift {
         self.loopCount = loopCount
         self.size = size
         self.progress = progress
+    }
+    
+    public init(asset: AVAsset, destinationFileURL: URL? = nil, startTime: Float, duration: Float, frameRate: Int, loopCount: Int = 0) {
+        self.asset = asset
+        self.destinationFileURL = destinationFileURL
+        self.startTime = startTime
+        self.duration = duration
+        
+        // The delay time is based on the desired framerate of the gif.
+        self.delayTime = (1.0 / Float(frameRate))
+        
+        // The frame count is based on the desired length and framerate of the gif.
+        self.frameCount = Int(duration * Float(frameRate))
+        
+        // The total length of the file, in seconds.
+        self.movieLength = Float(asset.duration.value) / Float(asset.duration.timescale)
+        
+        self.loopCount = loopCount
     }
 
     /**
