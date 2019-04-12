@@ -9,7 +9,7 @@ language: swift
 # - gem install cocoapods # Since Travis is not always on latest version
 # - pod install --project-directory=Example
 install:
-- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+- gem install xcpretty --no-document --quiet
 script:
 - set -o pipefail && xcodebuild test -project Regift.xcodeproj/ -scheme Regift -destination 'platform=iOS Simulator,name=iPhone X' ONLY_ACTIVE_ARCH=NO | xcpretty -c
 - set -o pipefail && xcodebuild test -project Regift.xcodeproj/ -scheme RegiftOSX -destination 'platform=OS X,arch=x86_64' ONLY_ACTIVE_ARCH=NO | xcpretty -c
