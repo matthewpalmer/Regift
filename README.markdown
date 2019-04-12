@@ -30,8 +30,9 @@ Easily convert a video to a GIF on iOS and OSX.
 
 ## Requirements
 
-- Xcode 9+
-- Swfit 4.0+
+- Xcode 10+
+- iOS 11.1+ / macOS 10.12+
+- Swfit 5.0+
 
 ## Installation
 ### Cocoapods
