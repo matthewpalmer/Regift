@@ -379,8 +379,6 @@ public struct Regift {
         // Wait for the asynchronous generator to finish.
         gifGroup.wait()
         
-        CGImageDestinationSetProperties(destination, fileProperties as CFDictionary)
-        
         // Finalize the gif
         if !CGImageDestinationFinalize(destination) {
             throw RegiftError.DestinationFinalize
